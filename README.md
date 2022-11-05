@@ -8,5 +8,6 @@ HOW TO USE:
 -Double click to run *.bat file and follow instructions  
   
 NOTES:   
+-Only works MIUI 12.x roms for now  
 -Device should be bootloader unlocked  
 -You can download Android Platform Tools from: https://developer.android.com/studio/releases/platform-tools  
