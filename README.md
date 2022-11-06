@@ -1,5 +1,5 @@
-# chopin-flasher
-Fastboot firmware flasher for POCO X3 GT / REDMI NOTE 10 PRO 5G  
+# chopin-miui12-flasher
+MIUI 12 fastboot firmware flasher for POCO X3 GT / REDMI NOTE 10 PRO 5G  
   
 HOW TO USE:  
 -Create \SDK\ folder and copy Android Platform Tools in this folder  
