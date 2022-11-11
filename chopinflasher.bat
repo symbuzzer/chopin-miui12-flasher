@@ -1,7 +1,7 @@
 @echo off
-set ver=1.30
+set ver=1.31
 color 0a
-title Chopin Flasher Script v%ver% by Ali BEYAZ
+title Chopin MIUI 12 Flasher Script v%ver% by Ali BEYAZ
 echo.
 echo Welcome to Chopin Flasher Script. Do it at your own risk.
 echo Go fastboot mode on your phone to begin.
