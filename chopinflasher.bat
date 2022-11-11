@@ -118,7 +118,7 @@ sdk\fastboot flash vbmeta --disable-verity --disable-verification vbmeta.img|| @
 goto exit
 
 :notsdkfound
-echo Make sure extract minimal ADB and fastboot files on "SDK" folder and rerun script again.
+echo Make sure extract Android Platform Tools files on "SDK" folder and rerun script again.
 echo.
 goto exit
 
