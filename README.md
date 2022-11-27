@@ -1,7 +1,7 @@
 # MIUI 12 fastboot firmware flasher for POCO X3 GT / REDMI NOTE 10 PRO 5G  
   
 HOW TO USE:  
--Create \SDK\ folder and extract Android Platform Tools in this folder  
+-Extract Android Platform Tools in same folder with *.bat file    
 -Create \images\ folder  
 -Open fastboot rom file with Winrar (or alternate) and copy all contents of the images folder to created images folder  
 -Double click to run *.bat file and follow instructions  
