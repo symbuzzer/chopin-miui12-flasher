@@ -6,13 +6,6 @@ echo.
 echo Welcome to Chopin Flasher Script. Do it at your own risk.
 echo Go fastboot mode on your phone to begin.
 echo.
-goto checksdkfiles
-
-:checksdkfiles
-if not exist sdk\adb.exe goto notsdkfound
-if not exist sdk\fastboot.exe goto notsdkfound
-if not exist sdk\AdbWinApi.dll goto notsdkfound
-if not exist sdk\AdbWinUsbApi.dll goto notsdkfound
 goto romconfirm
 
 :romconfirm
@@ -62,8 +55,8 @@ goto userdata
 
 :erase
 echo Erasing USERDATA
-sdk\fastboot erase metadata || @echo "Erase metadata error"
-sdk\fastboot flash userdata         images\userdata.img          || @echo "Flash userdata error"
+fastboot erase metadata || @echo "Erase metadata error"
+fastboot flash userdata images\userdata.img || @echo "Flash userdata error"
 goto startflashing
 
 :noterase
@@ -74,34 +67,34 @@ goto startflashing
 echo.
 echo Flashing...
 if exist images\boot.img sdk\fastboot erase boot_ab || @echo "Erase boot error"
-sdk\fastboot erase expdb || @echo "Erase expdb error"
-sdk\fastboot flash preloader_ab images\preloader_chopin.bin  || @echo "Flash preloader error"
-sdk\fastboot flash lk_ab       images\lk.img         || @echo "Flash lk_b       error"
-sdk\fastboot flash dpm_ab     images\dpm.img        || @echo "Flash dpm       error"
-sdk\fastboot flash tee_ab      images\tee.img        || @echo "Flash tee_a      error"
-sdk\fastboot flash mitee_ab    images\mitee.img      || @echo "Flash mitee error"
-sdk\fastboot flash sspm_ab    images\sspm.img       || @echo "Flash sspm_b    error"
-sdk\fastboot flash gz_ab       images\gz.img         || @echo "Flash gz_a       error"
-sdk\fastboot flash scp_ab      images\scp.img        || @echo "Flash scp_a      error"
-sdk\fastboot flash logo      images\logo.bin       || @echo "Flash logo      error"
-sdk\fastboot flash dtbo_ab      images\dtbo.img       || @echo "Flash dtbo      error"
-sdk\fastboot flash spmfw_ab     images\spmfw.img      || @echo "Flash spmfw     error"
-sdk\fastboot flash mcupm_ab   images\mcupm.img      || @echo "Flash mcupm     error"
-sdk\fastboot flash pi_img_ab    images\pi_img.img     || @echo "Flash pi_img    error"
-sdk\fastboot flash md1img_ab    images\md1img.img     || @echo "Flash md1img    error"
-sdk\fastboot flash cam_vpu1_ab  images\cam_vpu1.img   || @echo "Flash cam_vpu1  error"
-sdk\fastboot flash cam_vpu2_ab  images\cam_vpu2.img   || @echo "Flash cam_vpu2  error"
-sdk\fastboot flash cam_vpu3_ab  images\cam_vpu3.img   || @echo "Flash cam_vpu3  error"
-sdk\fastboot flash audio_dsp_ab images\audio_dsp.img  || @echo "Flash audio_dsp error"
-sdk\fastboot flash super            images\super.img             || @echo "Flash super    error"
-sdk\fastboot flash rescue            images\rescue.img           || @echo "Flash rescue   error"
-sdk\fastboot flash vbmeta_ab           images\vbmeta.img            || @echo "Flash vbmeta   error"
-sdk\fastboot flash vbmeta_system_ab    images\vbmeta_system.img     || @echo "Flash vbmeta_system   error"
-sdk\fastboot flash vbmeta_vendor_ab    images\vbmeta_vendor.img     || @echo "Flash vbmeta_vendor   error"
-sdk\fastboot flash cust         		images\cust.img        		|| @echo "Flash cust 			error"
-sdk\fastboot flash boot_ab             images\boot.img              || @echo "Flash boot     error"
-sdk\fastboot oem cdms
-sdk\fastboot set_active a  || @echo "set_active a error"
+fastboot erase expdb || @echo "Erase expdb error"
+fastboot flash preloader_ab images\preloader_chopin.bin  || @echo "Flash preloader error"
+fastboot flash lk_ab images\lk.img || @echo "Flash lk_ab error"
+fastboot flash dpm_ab images\dpm.img || @echo "Flash dpm error"
+fastboot flash tee_ab images\tee.img || @echo "Flash tee_aberror"
+fastboot flash mitee_ab images\mitee.img || @echo "Flash mitee error"
+fastboot flash sspm_ab images\sspm.img || @echo "Flash sspm_ab error"
+fastboot flash gz_ab images\gz.img || @echo "Flash gz_ab error"
+fastboot flash scp_ab images\scp.img || @echo "Flash scp_ab error"
+fastboot flash logo images\logo.bin || @echo "Flash logo error"
+fastboot flash dtbo_ab images\dtbo.img || @echo "Flash dtbo_ab error"
+fastboot flash spmfw_ab images\spmfw.img || @echo "Flash spmfw_ab error"
+fastboot flash mcupm_ab images\mcupm.img || @echo "Flash mcupm_ab error"
+fastboot flash pi_img_ab images\pi_img.img || @echo "Flash pi_img_ab error"
+fastboot flash md1img_ab images\md1img.img || @echo "Flash md1img_ab error"
+fastboot flash cam_vpu1_ab images\cam_vpu1.img || @echo "Flash cam_vpu1_ab error"
+fastboot flash cam_vpu2_ab images\cam_vpu2.img || @echo "Flash cam_vpu2_ab error"
+fastboot flash cam_vpu3_ab images\cam_vpu3.img || @echo "Flash cam_vpu3_ab error"
+fastboot flash audio_dsp_ab images\audio_dsp.img || @echo "Flash audio_dsp error"
+fastboot flash super images\super.img || @echo "Flash super error"
+fastboot flash rescue images\rescue.img || @echo "Flash rescue error"
+fastboot flash vbmeta_ab images\vbmeta.img || @echo "Flash vbmeta_ab error"
+fastboot flash vbmeta_system_ab images\vbmeta_system.img || @echo "Flash vbmeta_system_ab error"
+fastboot flash vbmeta_vendor_ab images\vbmeta_vendor.img || @echo "Flash vbmeta_vendor_ab error"
+fastboot flash cust images\cust.img || @echo "Flash cust error"
+fastboot flash boot_ab images\boot.img || @echo "Flash boot_ab error"
+fastboot oem cdms
+fastboot set_active a || @echo "set_active a error"
 echo.
 echo Success!
 echo.
@@ -114,12 +107,7 @@ if /I "%c%" EQU "N" goto exit
 goto verityconfirm
 
 :verity
-sdk\fastboot flash vbmeta --disable-verity --disable-verification vbmeta.img|| @echo "Disable verity is not success. Check vbmeta.img"
-goto exit
-
-:notsdkfound
-echo Make sure extract Android Platform Tools files on "SDK" folder and rerun script again.
-echo.
+fastboot flash vbmeta --disable-verity --disable-verification vbmeta.img || @echo "Disable verity is not success. Check vbmeta.img"
 goto exit
 
 :notfound
@@ -129,7 +117,7 @@ echo.
 goto exit
 
 :exit
-sdk\fastboot reboot
+fastboot reboot
 pause
 exit
 
